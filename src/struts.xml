@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    
+    <package name="wlwz" extends="struts-default">
+		
+		<action name="depolyAction" class="depoly_Action">
+            <result name="success">depolyConfirm.jsp</result>
+			<result name="input">depoly.jsp</result>
+        </action>
+        
+        <action name="registerAction" class="register_Action">
+            <result name="success">login.jsp</result>
+			<result name="input">register.jsp</result>
+        </action>
+        
+        <action name="loginAction" class="login_Action">
+            <result name="success">main.jsp</result>  <!-- state=3 -->
+            <result name="depoly">depoly.jsp</result> <!-- state=2 -->
+            <result name="pay">pay.jsp</result> <!-- state=1  -->
+			<result name="input">login.jsp</result>
+        </action>
+        
+        <action name="userAction" class="user_Action">
+        	<result name="success">left.jsp</result>
+        	<result name="list">/jsp/system/user.jsp</result>
+        	<result name="check">/jsp/system/userCheck.jsp</result>
+        	<result name="edit">/jsp/system/userEdit.jsp</result>
+        	<result name="delete">/jsp/system/user.jsp</result>
+        	<result name="add">/jsp/system/userAdd.jsp</result>
+        </action>
+        
+        
+        <action name="runningdataAction" class="runningdata_Action">
+        	<result name="success">/jsp/runningDataHistory.jsp</result>
+        	<result name="ad">/jsp/adData.jsp</result>
+        </action>
+        
+        
+        <action name="deviceAction" class="deviceAction">
+        	<result name="success">/jsp/device.jsp</result>
+        	<result name="add">/jsp/acde/deviceAdd.jsp</result>
+        </action>
+        
+        
+        <action name="projectAction" class="project_Action">
+        	<result name="success">/jsp/project.jsp</result>
+        	<result name="left">/left.jsp</result>
+        	<result name="check">/jsp/acde/prpjectCheck.jsp</result>
+        	<result name="edit">/jsp/acde/projectEdit.jsp</result>
+        	<result name="delete">/jsp/project.jsp</result>
+        </action>
+        
+        <action name="midteamAction" class="midteamAction">
+        	<result name="success">/jsp/midteam.jsp</result>
+        	<result name="check">/jsp/acde/midteamCheck.jsp</result>
+        	<result name="edit">/jsp/acde/midteamEdit.jsp</result>
+        	<result name="delete">/jsp/midteam.jsp</result>
+        	<result name="left">/left.jsp</result>
+        </action>
+        
+        <action name="accidentrecordAction" class="accidentrecordAction">
+        	<result name="success">/jsp/acdeRecord/accidentRecord.jsp</result>
+        	<result name="check">/jsp/acdeRecord/accidentRecordCheck.jsp</result>
+        	<result name="edit">/jsp/acdeRecord/accidentRecordEdit.jsp</result>
+        	<result name="delete">/jsp/acdeRecord/accidentRecord.jsp</result>
+        </action>
+        
+        <action name="resumerecordAction" class="resumerecordAction">
+        	<result name="success">/jsp/acdeRecord/resumeRecord.jsp</result>
+        	<result name="check">/jsp/acdeRecord/resumeRecordCheck.jsp</result>
+        	<result name="edit">/jsp/acdeRecord/resumeRecordEdit.jsp</result>
+        	<result name="delete">/jsp/acdeRecord/resumeRecord.jsp</result>
+        </action>
+        
+        <action name="maintenancerecordAction" class="maintenancerecordAction">
+        	<result name="success">/jsp/acdeRecord/maintenanceRecord.jsp</result>
+        	<result name="check">/jsp/acdeRecord/maintenanceRecordCheck.jsp</result>
+        	<result name="edit">/jsp/acdeRecord/maintenanceRecordEdit.jsp</result>
+        	<result name="delete">/jsp/acdeRecord/maintenanceRecord.jsp</result>
+        </action>
+        
+        <action name="handoverrecordAction" class="handoverrecordAction">
+        	<result name="success">/jsp/acdeRecord/handoverRecord.jsp</result>
+        	<result name="check">/jsp/acdeRecord/handoverRecordCheck.jsp</result>
+        	<result name="edit">/jsp/acdeRecord/handoverRecordEdit.jsp</result>
+        	<result name="delete">/jsp/acdeRecord/handoverRecord.jsp</result>
+        </action>
+        
+        
+        <action name="systemroleAction" class="systemrole_Action">
+        	<result name="success">/jsp/system/systemrole.jsp</result>
+        	<result name="check">/jsp/system/systemroleCheck.jsp</result>
+        	<result name="edit">/jsp/system/systemroleEdit.jsp</result>
+        	<result name="delete">/jsp/system/systemrole.jsp</result>
+        </action>
+        
+         <action name="videoAction" class="videoAction">
+        	<result name="success">/jsp/video/videoRecord.jsp</result>
+        	<result name="check">/jsp/video/videoRecordCheck.jsp</result>
+        	<result name="edit">/jsp/video/videoRecordEdit.jsp</result>
+        	<result name="delete">/jsp/video/videoRecord.jsp</result>
+        	<result name="add">/jsp/video/videoRecord.jsp</result>
+        </action>
+        
+    </package>
+    
+    <package name="json" extends="json-default">
+    	<action name="accidentrecordAction1" class="accidentrecordAction1">
+        	<result type="json"></result>
+        	<result type="json" name="input"></result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!--
+		This makes it possible to specify java.net.SocketAddress values (e.g.
+		:1234 below) as Strings. They will be converted into
+		java.net.InetSocketAddress objects by Spring.
+	-->
+	<!--构造属性编辑器 ,创建socket。-->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.net.SocketAddress">
+					<!-- 一个属性编辑器将一个字符串转化成一个InetSocketAddress,
+					有效值为主机名/IP地址：端口号 ,如果省略了主机名或者IP地址,将使用地址通配符-->
+					<bean class="org.apache.mina.integration.beans.InetSocketAddressEditor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+
+	<!--the IoFilters -->
+	<!-- 构造线程池 过滤器.构造异步通信，使数据的业务逻辑处理事件异步，提高对并发数的承受能力。
+	 	过滤器转发I/O事件到执行者去创建某个线程模型,以使每个session的事件能够同时处理。通过将该过滤器
+		加入到过滤器链中,可以申请各种线程模型 。
+		没有添加线程池,IO线程就会一直等待这个事务结束才会接着处理下一个任务，否则一直等待，
+		如果采用了ExecutorFilter，那么IO线程会将任务交给ExecutorFilter的线程池，由线程池去处理事务，
+		而IO线程就释放了，这样IO线程非常高效的能够同时处理很多的并发任务 。-->
+	<bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />
+
+
+
+	<!-- 过滤器将注入 一些关键的IoSession属性到MDC中去-->
+	<bean id="mdcInjectionFilter" class="org.apache.mina.filter.logging.MdcInjectionFilter">
+		<!-- 构造器参数,实例化类的时候调用的构造器,传入参数 -->
+		<constructor-arg value="remoteAddress" />
+	</bean>
+
+	<!-- 协议编解码过滤器 -->
+	<bean id="flashCodecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+		<constructor-arg>
+			<!--  
+				<bean
+				class="org.apache.mina.filter.codec.textline.TextLineCodecFactory"/>
+			-->
+			<bean class="com.wlwz.server.FlashCrossdomainCodec" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="loggingFilter" class="org.apache.mina.filter.logging.LoggingFilter" />
+
+	<!-- The non-SSL filter chain.构造过滤器链 -->
+	<bean id="flashFilterChainBuilder"
+		class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">
+		<property name="filters">
+			<map>
+			<!-- 后加进去的过滤器首先触发 -->
+				<entry key="executor" value-ref="executorFilter" />
+				<entry key="mdcInjectionFilter" value-ref="mdcInjectionFilter" />
+				<entry key="codecFilter" value-ref="flashCodecFilter" />
+				<entry key="loggingFilter" value-ref="loggingFilter" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- The IoAcceptor which binds to port 2020 -->
+	<bean id="serverHandler" class="com.wlwz.server.ServerHandler"></bean>
+	<!-- 构造server端 -->
+	<bean id="UDPioAccept"
+		class="org.apache.mina.transport.socket.nio.NioDatagramAcceptor"
+		init-method="bind" destroy-method="unbind">
+		<property name="defaultLocalAddress" value=":3030" />
+		<property name="handler" ref="serverHandler" />
+		<property name="filterChainBuilder" ref="flashFilterChainBuilder" />
+		<!--
+			数据接收时先进入serverHandler
+			开启session，然后进入FlashCrossdomainCodec，进行对接收的数据的最初处理
+		-->
+	</bean>
+
+
+	<!--
+		<bean id="alarm" class="com.cms.Alarm.AlarmInit"
+		init-method="initAlarm"> </bean>
+	-->
+	<!--
+		<bean id="ReadSqlConnectionInformation"
+		class="com.funmi.ReadSqlConnectionInfo"
+		init-method="readSqlConnectionInformation"> </bean>
+	-->
+</beans>
