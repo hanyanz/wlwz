@@ -38,7 +38,7 @@
 	
 		function box1(){
   		  $("#tb tr").click(function (e) {
-  	//	  $(this).toggleClass('selected');
+  		  $(this).toggleClass('selected');
   		  if(e.target.type!="checkbox"){
   		  	$(':checkbox',this).attr('checked',function(){
   		  		return !this.checked;

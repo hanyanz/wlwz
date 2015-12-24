@@ -40,7 +40,7 @@
 <table class="STYLEE23" width="100%">
   <tr>
     <td width="10%" style="text-align: right;background-color: #d3eaef; ">设备编码</td>
-    <td width="30%" style="text-align: left;"><input type="text" name="deviceNumber" /></td>
+    <td width="30%" style="text-align: left;"><input type="text" name="deviceId" /></td>
     <td width="10%" style="text-align: right;background-color: #d3eaef;">事故类型</td>
     <td width="30%" style="text-align: left;"><input type="text"  name="accidentType" /></td>
   </tr>

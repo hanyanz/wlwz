@@ -102,7 +102,7 @@
         	<result name="check">/jsp/video/videoRecordCheck.jsp</result>
         	<result name="edit">/jsp/video/videoRecordEdit.jsp</result>
         	<result name="delete">/jsp/video/videoRecord.jsp</result>
-        	<result name="add">/jsp/video/videoRecord.jsp</result>
+        	<result name="add">/jsp/video/videoRecordAdd.jsp</result>
         </action>
         
     </package>

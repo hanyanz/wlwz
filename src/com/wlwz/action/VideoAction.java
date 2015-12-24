@@ -18,7 +18,15 @@ public class VideoAction extends BaseAction{
 	private String imei;
 	private Integer userGroup;
 	private String videoUrl;
-	
+
+	public Integer getVideoRecordId() {
+		return videoRecordId;
+	}
+
+	public void setVideoRecordId(Integer videoRecordId) {
+		this.videoRecordId = videoRecordId;
+	}
+
 	public String getImei() {
 		return this.imei;
 	}
@@ -102,7 +110,7 @@ public class VideoAction extends BaseAction{
 	public String check() {
 		try {
 			HttpSession session = ReqRes.getSession();
-			Videoinfo a = videoinfoService.loadOneVideoinforecord(imei);
+            Videoinfo a = videoinfoService.loadByVideoRecodId(videoRecordId);
 			session.setAttribute("a", a);
 			return "check";
 		} catch (Exception e) {
@@ -115,7 +123,7 @@ public class VideoAction extends BaseAction{
 	public String edit() {
 		try {
 			HttpSession session = ReqRes.getSession();
-			Videoinfo a = videoinfoService.loadOneVideoinforecord(imei);
+			Videoinfo a = videoinfoService.loadByVideoRecodId(videoRecordId);
 			session.setAttribute("a", a);
 			return "edit";
 		} catch (Exception e) {
@@ -124,11 +132,14 @@ public class VideoAction extends BaseAction{
 		return null;
 	}
 
-	public void saveEdit() {
+	public String saveEdit() {
 		try {
 			videoinfoService.saveEdit(videoRecordId, imei, getUserGroup(), videoUrl);
+            getVideoinfoList();
+            return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
+            return "edit";
 		}
 	}
 

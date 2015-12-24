@@ -8,7 +8,9 @@ public interface IVideoinfoService {
 	public Long countVideoinforecord(Integer queryVideoRecordId); 
 
 	public List<Videoinfo> loadAllVideoinforecord(Integer start,
-			Integer limit, Integer queryVideoRecordId); 
+			Integer limit, Integer queryVideoRecordId);
+
+	public Videoinfo loadByVideoRecodId(Integer videoRecodId);
 	
 	public Long countVideoinforecord(String IMEI,Integer userGroup);
 	

@@ -56,7 +56,7 @@ public class VideoinfoServiceImpl implements IVideoinfoService{
 			Integer limit, Integer queryVideoRecordId) {
 		DetachedCriteria dtr = DetachedCriteria.forClass(Videoinfo.class);
 		if ((queryVideoRecordId != null && !"".equals(queryVideoRecordId)))
-			dtr.add(Restrictions.like("Videoinfo.queryVideoRecordId", "%"
+			dtr.add(Restrictions.like("videoRecordId", "%"
 					+ queryVideoRecordId + "%"));
 		//dtr.addOrder(Order.desc("createTime"));
 		return commonDAO.findByDetachedCriteriaWithLimit(dtr, start, limit);
@@ -71,8 +71,8 @@ public class VideoinfoServiceImpl implements IVideoinfoService{
 		
    
 		if (IMEI != null && !"".equals(IMEI)) {
-			dtr.createAlias("videoinfo", "videoinfo");
-			dtr.add(Restrictions.like("videoinfo.imei", "%" + IMEI
+//			dtr.createAlias("videoinfo", "videoinfo");
+			dtr.add(Restrictions.like("imei", "%" + IMEI
 					+ "%"));
 //			dtr.add(Restrictions.like("videoinfo.userGroup", userGroup));
 		}
@@ -90,8 +90,8 @@ public class VideoinfoServiceImpl implements IVideoinfoService{
 		DetachedCriteria dtr = DetachedCriteria.forClass(Videoinfo.class);
 
 		if (IMEI != null && !"".equals(IMEI)) {
-			dtr.createAlias("videoinfo", "videoinfo");
-			dtr.add(Restrictions.like("videoinfo.imei", "%" + IMEI
+//			dtr.createAlias("videoinfo", "videoinfo");
+			dtr.add(Restrictions.like("imei", "%" + IMEI
 					+ "%"));
 		}
 		dtr.add(Restrictions.eq("userGroup", userGroup));
@@ -121,11 +121,18 @@ public class VideoinfoServiceImpl implements IVideoinfoService{
 		return null;
 	}
 
+	public Videoinfo loadByVideoRecodId(Integer videoRecodId){
+		Videoinfo videoinfo = null;
+		if (videoRecodId != null && !"".equals(videoRecodId)) {
+			videoinfo = videoinfoDAO.findById(videoRecodId);
+		}
+		return videoinfo;
+	}
+
 	// 保存对记录的修改
 	public void saveEdit(Integer id,String imei, Integer userGroup, String videoUrl ) {
 		if (id != null && !"".equals(id)) {
-			Videoinfo videoinfo = new Videoinfo();
-			videoinfo = videoinfoDAO.findById(id);
+			Videoinfo videoinfo = videoinfoDAO.findById(id);
 			if (videoinfo != null) {
 				videoinfo.setImei(imei);
 				videoinfo.setUserGroup(userGroup);
@@ -138,8 +145,7 @@ public class VideoinfoServiceImpl implements IVideoinfoService{
 	// 暂时采用逻辑删除，对数据库内容不进行物理删除
 	public void deleteRecord(Integer id) {
 		if (id != null && !"".equals(id)) {
-			Videoinfo videoinfo = new Videoinfo();
-			videoinfo = videoinfoDAO.findById(id);
+			Videoinfo videoinfo = videoinfoDAO.findById(id);
 			if (videoinfo != null) {
 				videoinfo.setIsActive(false);
 				videoinfoDAO.attachDirty(videoinfo);

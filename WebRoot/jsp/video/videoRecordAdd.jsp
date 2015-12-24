@@ -45,12 +45,12 @@
 <table class="STYLEE23" width="100%">
   <tr>
     <td width="10%" style="text-align: right;background-color: #d3eaef; ">设备编码</td>
-    <td width="30%" style="text-align: left;"><input type="text" id ="imei" /></td>
+    <td width="30%" style="text-align: left;"><input type="text" name ="imei" /></td>
   </tr>
   
   <tr>
     <td style="text-align: right;background-color: #d3eaef;">视频地址</td>
-    <td style="text-align: left;"><textarea id="videoUrl" style="width:95%;overflow:auto" rows=""></textarea></td>
+    <td style="text-align: left;"><input type="text" name ="videoUrl" style="width:95%;overflow:auto" rows=""></td>
   </tr>
   <tr>
     <td colspan="3" style="text-align: center;">
