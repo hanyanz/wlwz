@@ -43,9 +43,21 @@
 	    <div class="content">
 	     <ul>
 	      <li><a href="videoAction!getVideoinfoList.action" target="rightFrame"> 视频列表</a></li>
+			<!-- <li><a href="jsp/realTimeVideo.jsp" target="rightFrame"> 查看实时视频</li> -->
 	     </ul>
 	    </div>
 	    </div>
+
+		<div class="AccordionPanel">
+			<div class="menus">
+				<a href="#">数据处理</a>
+			</div>
+			<div class="content">
+				<ul>
+					<li><a href="jsp/uploadFile/uploadFile.jsp" target="rightFrame"> 数据处理模块</li>
+				</ul>
+			</div>
+		</div>
 	    
 	    <div class="AccordionPanel">
 		<div class="menus">

@@ -141,7 +141,7 @@ public class ServerHandler implements IoHandler {
 		// test[2] =-4;
 		// session.write(test);
 		// }
-		String mesString = message.toString();
+		String mesString = analyticASCII(message.toString());
 		System.out.println("接收数据十六进制" + mesString);
 		System.out.println("========================接收到十六进制数据的长度"
 				+ mesString.length() / 2 + "字节=========================");

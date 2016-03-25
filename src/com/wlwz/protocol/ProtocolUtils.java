@@ -132,11 +132,11 @@ public class ProtocolUtils {
 		        Collection<IoSession> sessions = session.getService().getManagedSessions().values();
 
 		        // 向所有客户端发送数据
-		        for (IoSession sess : sessions) {
-
-		            sess.write("hello, I am server!");
-
-		        }
+//		        for (IoSession sess : sessions) {
+//
+//		            sess.write("hello, I am server!");
+//
+//		        }
 				
 				// 判断是否有报警,然后发送到笔记本
 				// AlarmSend alarmSend = new AlarmSend();

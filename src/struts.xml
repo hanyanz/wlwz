@@ -104,6 +104,11 @@
         	<result name="delete">/jsp/video/videoRecord.jsp</result>
         	<result name="add">/jsp/video/videoRecordAdd.jsp</result>
         </action>
+
+		<action name="uploadFileAction" class="uploadFileAction">
+			<result name = "success">/jsp/uploadFile/displayData.jsp</result>
+			<result name = "input">/jsp/uploadFile/uploadFile.jsp</result>
+		</action>
         
     </package>
     
